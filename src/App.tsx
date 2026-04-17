@@ -12,6 +12,7 @@ import {
   Download, 
   BookOpen, 
   ExternalLink, 
+  AlertCircle,
   Phone, 
   MapPin, 
   Map,
@@ -132,13 +133,21 @@ export default function App() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="flex flex-col items-center space-y-6"
+                        className="flex flex-col items-center space-y-4"
                       >
-                        <div className="p-3 bg-bg-clean border border-border-clean rounded-lg">
-                          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=login-token-123" alt="Login QR" className="w-44 h-44 opacity-80" />
+                        <div className="text-center space-y-1">
+                          <p className="text-[13px] text-text-gray">
+                            <span className="text-blue-500 underline cursor-pointer">下载</span>新点标证通APP，免费注册绑定，购买证书后，
+                          </p>
+                          <p className="text-sm font-medium text-text-dark">扫码即可直接登录平台</p>
                         </div>
-                        <p className="text-sm text-text-gray text-center">
-                          请使用 <strong>标证通APP</strong> 扫码登录
+                        
+                        <div className="p-2 border border-border-clean rounded-lg bg-white shadow-sm">
+                          <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=login-token-123" alt="Login QR" className="w-[140px] h-[140px]" />
+                        </div>
+                        
+                        <p className="text-sm text-text-gray">
+                          打开新点标证通，扫一扫登录
                         </p>
                       </motion.div>
                     )}
@@ -149,17 +158,24 @@ export default function App() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="space-y-6"
+                        className="space-y-12 py-4"
                       >
-                        <div className="p-4 bg-primary-light border border-blue-100 rounded-lg text-xs text-primary leading-relaxed">
-                          请插入您的CA数字证书（UKey），系统将自动识别证书信息。
+                        <div className="relative group">
+                          <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-3 border-r pr-3 border-gray-200">
+                             <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center">
+                               <Lock size={16} className="text-gray-400" />
+                             </div>
+                          </div>
+                          <input 
+                            type="password" 
+                            placeholder="请输入密码" 
+                            className="w-full pl-20 pr-4 py-3.5 bg-white border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary outline-none transition-all group-hover:border-gray-300"
+                          />
                         </div>
-                        <div className="space-y-4">
-                          <select className="w-full px-4 py-3 bg-bg-clean border border-border-clean rounded-lg text-sm focus:ring-2 focus:ring-primary outline-none appearance-none">
-                            <option>正在检测CA证书...</option>
-                            <option>江苏新点CA (88888888)</option>
-                          </select>
-                        </div>
+
+                        <button className="w-full py-3.5 bg-primary hover:bg-blue-700 text-white font-semibold rounded-lg transition-all shadow-lg shadow-blue-200 text-lg">
+                          立即登录
+                        </button>
                       </motion.div>
                     )}
 
@@ -167,39 +183,67 @@ export default function App() {
                   </AnimatePresence>
                 </div>
 
-                <div className="mt-8 space-y-3">
-                  <button className="w-full py-3.5 bg-primary hover:bg-blue-700 text-white font-semibold rounded-lg transition-all shadow-lg shadow-blue-200">
-                    立即登录
-                  </button>
-                  <button className="w-full py-3 border border-border-clean text-text-dark text-sm font-medium rounded-lg hover:bg-slate-50 transition-all">
-                    电子保函服务平台 →
-                  </button>
+                {/* Only Troubleshooting and Download buttons at the bottom */}
+                <div className="mt-auto space-y-6">
+                  {/* Troubleshooting Links */}
+                  <div className="flex flex-col gap-2 pt-4 border-t border-gray-50">
+                    <div className="flex items-center gap-1.5 text-[12px]">
+                      <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold">!</div>
+                      <span className="text-text-dark font-medium">无法登录？请点击</span>
+                      <a href="#" className="text-orange-600 underline font-medium">环境一键修复</a>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[12px]">
+                      <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold">!</div>
+                      <span className="text-text-dark font-medium">仍然无法登录？请点击</span>
+                      <a href="#" className="text-orange-600 underline font-medium">常见问题</a>
+                    </div>
+                  </div>
+
+                  {/* Horizontal Action Buttons */}
+                  <div className="flex gap-4">
+                    <button className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-orange-400 hover:bg-orange-500 text-white text-xs font-bold rounded shadow-sm transition-colors">
+                      <div className="w-4 h-4 rounded-full border border-white flex items-center justify-center"><Download size={10} /></div>
+                      手册下载
+                    </button>
+                    <button className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-orange-400 hover:bg-orange-500 text-white text-xs font-bold rounded shadow-sm transition-colors">
+                      <div className="w-4 h-4 rounded-full border border-white flex items-center justify-center"><Download size={10} /></div>
+                      驱动下载
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.section>
 
-            {/* Toggle Help Button (Moved OUTSIDE the overflow-hidden section) */}
+            {/* Platform Help Toggle (Tech Badge Style - Integrated to Card Edge) */}
             <button 
               onClick={() => setShowHelp(!showHelp)}
-              className={`absolute right-[-48px] top-[100px] w-12 py-6 rounded-r-2xl shadow-2xl flex flex-col items-center gap-2 group transition-all z-[30] ${showHelp ? 'bg-orange-600 border border-orange-500' : 'bg-orange-500 border border-orange-400 hover:bg-orange-600'}`}
+              className={`absolute right-[-28px] top-[100px] w-[32px] h-[130px] z-[40] transition-all duration-300 transform active:scale-95 group focus:outline-none flex`}
             >
-              <div className="h-4 flex flex-col items-center gap-0.5">
-                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                <div className="w-1.5 h-4 bg-white/60 rounded-full"></div>
-              </div>
-              <div className="[writing-mode:vertical-rl] text-white text-[14px] font-bold tracking-widest py-3">
-                平台帮助
-              </div>
-              <div className="p-1 bg-white/20 rounded-full">
-                <HelpCircle size={16} className="text-white group-hover:scale-110 transition-transform" />
-              </div>
-              <motion.div
-                animate={{ rotate: showHelp ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="mt-1"
+              <div 
+                className={`w-full h-full flex flex-col items-center justify-center relative transition-colors duration-300 ${showHelp ? 'bg-orange-600 shadow-inner' : 'bg-orange-500 shadow-[4px_0_12px_rgba(249,115,22,0.4)] group-hover:bg-orange-600'}`}
+                style={{
+                  clipPath: 'polygon(0% 0%, 100% 8%, 100% 92%, 0% 100%)',
+                }}
               >
-                <ChevronRight size={16} className="text-white" />
-              </motion.div>
+                {/* Decorative Tech Accents (matching user reference image style) */}
+                <div className="absolute top-1.5 left-2 right-2 h-[1px] bg-white/30"></div>
+                <div className="absolute bottom-1.5 left-2 right-2 h-[1px] bg-white/30"></div>
+                <div className="absolute top-[40%] right-0 w-[1.5px] h-[20%] bg-white/30"></div>
+
+                <div className="[writing-mode:vertical-rl] text-white text-[12px] font-bold tracking-[0.4em] mb-1 drop-shadow-sm select-none">
+                  平台帮助
+                </div>
+                
+                <motion.div
+                  animate={{ rotate: showHelp ? 180 : 0 }}
+                  className="mt-1 opacity-80"
+                >
+                  <ChevronRight size={14} strokeWidth={3} />
+                </motion.div>
+
+                {/* Vertical Inner Glow (Card side) */}
+                <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-white/10 group-hover:bg-white/20"></div>
+              </div>
             </button>
 
             {/* Platform Help Panel (Dynamic Appearance) */}
@@ -211,7 +255,7 @@ export default function App() {
                   exit={{ opacity: 0, x: -20, scaleX: 0 }}
                   transition={{ duration: 0.4, ease: "circOut" }}
                   style={{ originX: 0 }}
-                  className="absolute left-[420px] top-[100px] ml-11 w-max h-auto z-10 pointer-events-auto"
+                  className="absolute left-[420px] top-0 ml-11 w-max h-auto z-10 pointer-events-auto"
                 >
                   {/* Decorative Badge Link Top */}
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 px-8 py-2 bg-blue-600 rounded-t-xl border-x border-t border-blue-400/50 flex items-center gap-2 shadow-[0_-5px_15px_-3px_rgba(37,99,235,0.4)] z-20">
