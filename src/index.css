@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1d4ed8;
+  --color-primary-light: #eff6ff;
+  --color-text-dark: #1e293b;
+  --color-text-gray: #64748b;
+  --color-bg-clean: #f8fafc;
+  --color-border-clean: #e2e8f0;
+  --color-accent-clean: #f59e0b;
+  
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Microsoft YaHei', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-clean text-text-dark antialiased;
+  }
+}
